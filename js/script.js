@@ -1,4 +1,5 @@
 function searchFilm(){
+    $('#film-list').html('') // agar search nya tidak double
     $.ajax({
         url: 'http://omdbapi.com', // servernya ambil data dari sini
         type: 'get', // method
@@ -26,6 +27,9 @@ function searchFilm(){
                         </div>
                     `)
                 })
+
+                $('#search-input').val('') // untuk menghilangkan keyword yang telah dicari
+
             }else{
                 $('#film-list').html(`
                     <div class="col">
@@ -39,4 +43,11 @@ function searchFilm(){
 
 $('#search-button').on('click',function(){
     searchFilm(); // Panggil fungsi searchFilm
+})
+
+// agar bisa klik search dengan tombol enter
+$('#search-input').on('keyup', function(e) {
+    if(e.keyCode === 13){
+        searchFilm()
+    }
 })
